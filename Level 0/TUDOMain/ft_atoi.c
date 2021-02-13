@@ -24,7 +24,7 @@ int	ft_atoi(const char *str)
 		num = num + (int)(*str - '0');
 		str++;
 	}
-	return (num * sign);
+	return (num * sign);1
 }
 
 int main()
