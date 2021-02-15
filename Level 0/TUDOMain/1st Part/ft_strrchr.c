@@ -30,14 +30,14 @@ char	*ft_strrchr(const char *s, int c)
 		return (str + temp);
 }
 
-int main()
-{
-	char s[] = "haystack";
-	int c = 97;
+// int main()
+// {
+// 	char s[] = "haystack";
+// 	int c = 97;
 
-	printf("%s\n", s);
-	printf("%d\n\n", c);
+// 	printf("%s\n", s);
+// 	printf("%d\n\n", c);
 
-	printf("%s", ft_strrchr(s, c));
-	return 0;
-}
+// 	printf("%s", ft_strrchr(s, c));
+// 	return 0;
+// }

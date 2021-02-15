@@ -21,14 +21,14 @@ char	*ft_strchr(const char *s, int c)
 	return 0;
 }
 
-int main()
-{
-	char s[] = "haystack";
-	int c = 72;
+// int main()
+// {
+// 	char s[] = "haystack";
+// 	int c = 72;
 
-	printf("%s\n", s);
-	printf("%d\n\n", c);
+// 	printf("%s\n", s);
+// 	printf("%d\n\n", c);
 
-	printf("%s", ft_strchr(s, c));
-	return 0;
-}
+// 	printf("%s", ft_strchr(s, c));
+// 	return 0;
+// }
