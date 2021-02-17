@@ -1,6 +1,6 @@
 /*
 	DONE / CONFIRMED WITH MAIN
-    The function isprint is going to count the lenght of a given string. 
+    The function isprint is going to count the lenght of a given string.
     The argument is a char *string and will return the number of characters on it.
 */
 
@@ -13,6 +13,7 @@ size_t	ft_strlen(const char *str)
     int i;
 
 	counter = 0;
+	i = 0;
 	while (str[i] != '\0')
 	{
 		counter++;
@@ -21,23 +22,3 @@ size_t	ft_strlen(const char *str)
 	return (counter);
 }
 
-int main()
-{
-	char str[] = "abcdh";
-	int	counter;
-	int size = ft_strlen(str);
-    int i = 0;
-
-	counter = 0;
-	while (str[i] != '\0')
-	{
-		counter++;
-		i++;
-	}
-	printf("%d\n", counter);
-
-	printf("\n%d", size);
-
-	return 0;
-
-}
