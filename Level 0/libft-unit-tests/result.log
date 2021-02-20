@@ -1,0 +1,473 @@
+ft_memset:     [OK] [OK] [OK] [OK] [OK] [OK] [OK] 
+ft_bzero:      [OK] [OK] [OK] [OK] 
+ft_memcpy:     [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] 
+ft_memccpy:    [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] 
+ft_memmove:    [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] 
+ft_memchr:     [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] 
+ft_memcmp:     [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] 
+ft_strlen:     [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] 
+ft_isalpha:    [OK] 
+ft_isdigit:    [OK] 
+ft_isalnum:    [OK] 
+ft_isascii:    [OK] 
+ft_isprint:    [OK] 
+ft_toupper:    [OK] 
+ft_tolower:    [OK] 
+ft_strchr:     [OK] [OK] [OK] [OK] [OK] [OK] [FAILED] [OK] [OK] [NO CRASH] 
+[fail]: your strchr does not work with \0
+Test code:
+	char *src = "there is so \0ma\0ny \0 \\0 in t\0his stri\0ng !\0\0\0\0";
+	char *d1 = strchr(src, '\0');
+	char *d2 = ft_strchr(src, '\0');
+
+	if (d1 == d2)
+		exit(TEST_SUCCESS);
+	exit(TEST_FAILED);
+
+Diffs:
+      strchr: ||
+   ft_strchr: |(null)|
+
+[no crash]: your strchr does not segfault with NULL parameter
+Test code:
+	ft_strchr(((void *)0), '\0');
+
+
+ft_strrchr:    [OK] [FAILED] [OK] [OK] [FAILED] [OK] [OK] [NO CRASH] 
+[fail]: your strrchr does not work with basic input
+Test code:
+	char *src = "abbbbbbbb";
+	char *d1 = strrchr(src, 'a');
+	char *d2 = ft_strrchr(src, 'a');
+
+	if (d1 == d2)
+		exit(TEST_SUCCESS);
+	exit(TEST_FAILED);
+
+Diffs:
+     strrchr: |abbbbbbbb|
+  ft_strrchr: |(null)|
+
+[fail]: your strrchr does not work with \0
+Test code:
+	char *src = "there is so \0ma\0ny \0 \\0 in t\0his stri\0ng !\0\0\0\0";
+	char *d1 = strrchr(src, '\0');
+	char *d2 = ft_strrchr(src, '\0');
+
+	if (d1 == d2)
+		exit(TEST_SUCCESS);
+	exit(TEST_FAILED);
+
+Diffs:
+     strrchr: ||
+  ft_strrchr: |(null)|
+
+[no crash]: your strrchr does not segfault when a null parameter is sent
+Test code:
+	ft_strrchr(((void *)0), '\0');
+
+
+ft_strncmp:    [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [FAILED] [OK] [OK] [OK] 
+[fail]: your strncmp does not work when s1 is contained in s2
+Test code:
+	char *big = "abcdef";
+	char *little = "abcdefghijklmnop";
+	size_t size = 6;
+	int i1 = ((strncmp(big, little, size) > 0) ? 1 : ((strncmp(big, little, size) < 0) ? -1 : 0));
+	int i2 = ((ft_strncmp(big, little, size) > 0) ? 1 : ((ft_strncmp(big, little, size) < 0) ? -1 : 0));
+
+	if (i1 == i2)
+		exit(TEST_SUCCESS);
+	exit(TEST_FAILED);
+
+Diffs:
+     strncmp: |0|
+  ft_strncmp: |-1|
+
+ft_strlcpy:    [OK] [OK] [OK] [OK] [OK] [OK] {not protected}
+ft_strlcat:    [OK] [FAILED] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] 
+[fail]: your strlcat does not work with basic input
+Test code:
+	char *str = "the cake is a lie !\0I'm hidden lol\r\n";
+	char buff1[0xF00] = "there is no stars in the sky";
+	char buff2[0xF00] = "there is no stars in the sky";
+	size_t max = strlen("the cake is a lie !\0I'm hidden lol\r\n") + 4;
+	size_t r1 = __builtin___strlcat_chk (buff1, str, max, __builtin_object_size (buff1, 2 > 1 ? 1 : 0));
+	size_t r2 = ft_strlcat(buff2, str, max);
+
+	if (r1 != r2)
+		exit(TEST_FAILED);
+	char s1[4] = "";
+	char s2[4] = "";
+	r1 = __builtin___strlcat_chk (s1, "thx to ntoniolo for this test !", 4, __builtin_object_size (s1, 2 > 1 ? 1 : 0))
+		;
+	r2 = ft_strlcat(s2, "thx to ntoniolo for this test !", 4)
+		;
+	if (r1 != r2)
+		exit(TEST_FAILED);
+	exit(TEST_SUCCESS);
+
+Diffs:
+     strlcat: |31|
+  ft_strlcat: |32|
+
+ft_strnstr:    [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] 
+ft_atoi:       [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [KO] [KO] [OK] [OK] [OK] [OK] 
+[KO]: your atoi does not work with over long max value
+Test code:
+	char n[40] = "99999999999999999999999999";
+	int i1 = atoi(n);
+	int i2 = ft_atoi(n);
+
+	if (i1 == i2)
+		exit(TEST_SUCCESS);
+	exit(TEST_KO);
+
+Diffs:
+        atoi: |-1|
+     ft_atoi: |-469762049|
+
+[KO]: your atoi does not work with over long min value
+Test code:
+	char n[40] = "-99999999999999999999999999";
+	int i1 = atoi(n);
+	int i2 = ft_atoi(n);
+
+	if (i1 == i2)
+		exit(TEST_SUCCESS);
+	exit(TEST_KO);
+
+Diffs:
+        atoi: |0|
+     ft_atoi: |469762049|
+
+ft_calloc:     [OK] [OK] [OK] [OK] [OK] 
+ft_strdup:     [OK] [OK] [OK] [OK] [OK] [OK] [OK] 
+ft_substr:     [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] {protected}[FAILED] 
+[fail]: your substr does not work when start >= ft_strlen(s)
+Test code:
+	char *str = "01234";
+	size_t size = 10;
+	char *ret = ft_substr(str, 10, size);
+
+	if (!strncmp(ret, "", 1))
+	{
+		free(ret);
+		exit(TEST_SUCCESS);
+	}
+	free(ret);
+	exit(TEST_FAILED);
+
+Diffs:
+      substr: ||
+   ft_substr: | strjoin d|
+
+ft_strjoin:    [OK] [OK] [OK] [OK] [OK] {not protected}
+ft_strtrim:    [FAILED] [FAILED] [OK] [FAILED] [CRASH] [KO] [FAILED] [OK] [FAILED] {protected}
+[fail]: your strtrim does not work with basic input
+Test code:
+	char *s1 = "   \t  \n\n \t\t  \n\n\nHello \t  Please\n Trim me !\n   \n \n \t\t\n  ";
+	char *s2 = "Hello \t  Please\n Trim me !";
+	char *ret = ft_strtrim(s1, " \n\t");
+
+	if (!strcmp(ret, s2))
+		exit(TEST_SUCCESS);
+	exit(TEST_FAILED);
+
+Diffs:
+     strtrim: |Hello 	  Please
+ Trim me !|
+  ft_strtrim: |  	  
+
+ 		  
+
+
+Hello 	  Please
+ Trim me !
+   
+ 
+ 		
+  |
+
+[fail]: your strtrim does not work with basic input
+Test code:
+	char *s1 = "   \t  \n\n \t\t  \n\n\nHello \t  Please\n Trim me !";
+	char *s2 = "Hello \t  Please\n Trim me !";
+	char *ret = ft_strtrim(s1, " \n\t");
+
+	if (!strcmp(ret, s2))
+		exit(TEST_SUCCESS);
+	exit(TEST_FAILED);
+
+Diffs:
+     strtrim: |Hello 	  Please
+ Trim me !|
+  ft_strtrim: |  	  
+
+ 		  
+
+
+Hello 	  Please
+ Trim me !|
+
+[fail]: your strtrim does not work with full blank input
+Test code:
+	char *s1 = "  \t \t \n   \n\n\n\t";
+	char *s2 = "";
+	char *ret = ft_strtrim(s1, " \n\t");
+
+	if (!strcmp(ret, s2))
+		exit(TEST_SUCCESS);
+	exit(TEST_FAILED);
+
+Diffs:
+     strtrim: ||
+  ft_strtrim: | 	 	 
+   
+
+|
+
+[crash]: your strtrim does not work with empty input
+Test code:
+	char *s1 = "";
+	char *s2 = "";
+	char *ret = ft_strtrim(s1, " \n\t");
+
+	if (!strcmp(ret, s2))
+		exit(TEST_SUCCESS);
+	exit(TEST_FAILED);
+
+
+[KO]: your strtrim did not allocate the good size so the \0 test may be false
+Test code:
+	char *s1 = "\t   \n\n\n  \n\n\t    Hello \t  Please\n Trim me !\t\t\t\n  \t\t\t\t  ";
+	char *s2 = "Hello \t  Please\n Trim me !";
+	int r_size = strlen(s2);
+	int size;
+
+	ft_strtrim(s1, " \n\t");
+	size = get_last_malloc_size();
+	if (size == r_size + 1)
+		exit(TEST_SUCCESS);
+	exit(TEST_KO);
+
+Diffs:
+     strtrim: |27|
+  ft_strtrim: |53|
+
+[fail]: your strtrim does not allocate memory
+Test code:
+	char *s1 = "   \t  \n\n \t\t  \n\n\nHello \t  Please\n Trim me !\n   \n \n \t\t\n  ";
+	char *s2 = "Hello \t  Please\n Trim me !";
+	char *ret = ft_strtrim(s1, " \n\t");
+
+	if (!strcmp(ret, s2))
+	{
+		free(ret);
+		exit(TEST_SUCCESS);
+	}
+	free(ret);
+	exit(TEST_FAILED);
+
+Diffs:
+     strtrim: |Hello 	  Please
+ Trim me !|
+  ft_strtrim: |  	  
+
+ 		  
+
+
+Hello 	  Please
+ Trim me !
+   
+ 
+ 		
+  |
+
+[fail]: your strtrim does not set \0 to the end of the string
+Test code:
+	char *s1 = "   \t  \n\n \t\t  \n\n\nHello \t  Please\n Trim me !\n   \n \n \t\t\n  ";
+	char *s2 = "Hello \t  Please\n Trim me !";
+
+	char *ret = ft_strtrim(s1, " \n\t");
+	if (!strcmp(s2, ret))
+	{
+		free(ret);
+		exit(TEST_SUCCESS);
+	}
+	free(ret);
+	exit(TEST_FAILED);
+
+Diffs:
+     strtrim: |Hello 	  Please
+ Trim me !|
+  ft_strtrim: |  	  
+
+ 		  
+
+
+Hello 	  Please
+ Trim me !
+   
+ 
+ 		
+  |
+
+ft_split:      [FAILED] [OK] [FAILED] [FAILED] [OK] [OK] [FAILED] [OK] [FAILED] {not protected}
+[fail]: your split does not work with basic input
+Test code:
+	char *string = "      split       this for   me  !       ";
+	char **expected = ((char*[6]){"split", "this", "for", "me", "!", ((void *)0)});
+	char **result = ft_split(string, ' ');
+
+	split_cmp_array(expected, result);
+
+Diffs:
+       split: |split|
+    ft_split: |ÀAÐç¾|
+
+[fail]: your split does not work with one word
+Test code:
+	char *s = "                  olol";
+	char **result = ft_split(s, ' ');
+
+	split_cmp_array(expected, result);
+
+Diffs:
+       split: |olol|
+    ft_split: |pBàç¾|
+
+[fail]: your split does not work with one word
+Test code:
+	char *s = "olol                     ";
+	char **result = ft_split(s, ' ');
+
+	split_cmp_array(expected, result);
+
+Diffs:
+       split: |olol|
+    ft_split: |@B€ê¾|
+
+[fail]: your split does not work with basic input
+Test code:
+	char *s = "split  ||this|for|me|||||!|";
+	int i = 0;
+	char **result = ft_split(s, '|');
+
+	while (result[i])
+	{
+		if (strcmp(result[i], *expected))
+		{
+			exit(TEST_FAILED);
+		}
+		free(result[i]);
+		i++;
+		expected++;
+	}
+	free(result);
+	exit(TEST_SUCCESS);
+
+Diffs:
+       split: |this|
+    ft_split: ||
+
+[fail]: your split does not work with basic input
+Test code:
+	char *s = "      split       this for   me  !       ";
+
+	char **result = ft_split(s, ' ');
+	while (*result)
+	{
+		if (strcmp(*result, *expected))
+		{
+			exit(TEST_FAILED);
+		}
+		result++;
+		expected++;
+	}
+	exit(TEST_SUCCESS);
+
+Diffs:
+       split: |split|
+    ft_split: ||
+
+ft_itoa:       [OK] [FAILED] [OK] [FAILED] [OK] [OK] [KO] [KO] [OK] 
+[fail]: your itoa does not work with random number
+Test code:
+	srand(clock());
+	int n;
+	char *d;
+
+	for (int i = 0; i < 2000; i++)
+	{
+		n = rand();
+		d = ft_itoa(n);
+		if (atoi(d) != n)
+		{
+			exit(TEST_FAILED);
+		}
+	}
+	exit(TEST_SUCCESS);
+
+Diffs:
+        itoa: |1019286249|
+     ft_itoa: |19286249|
+
+[fail]: your itoa does not work with min int
+Test code:
+	char *i1 = ft_itoa((-2147483647 -1));
+
+	if (atoi(i1) != (-2147483647 -1))
+	{
+		exit(TEST_FAILED);
+	}
+	exit(TEST_SUCCESS);
+
+Diffs:
+        itoa: |-2147483648|
+     ft_itoa: |-(|
+
+[KO]: your itoa does not allocate the good size so the \0 test may be false
+Test code:
+	int size;
+	char *i1;
+
+	i1 = ft_itoa(-5859);
+	size = get_last_malloc_size();
+	if (size == 6)
+		exit(TEST_SUCCESS);
+	exit(TEST_KO);
+
+Diffs:
+        itoa: |6|
+     ft_itoa: |56|
+
+[KO]: your itoa does not allocate the good size so the \0 test may be false
+Test code:
+	int size;
+	char *i1;
+
+	i1 = ft_itoa(0);
+	size = get_last_malloc_size();
+	if (size == 2)
+		exit(TEST_SUCCESS);
+	exit(TEST_KO);
+
+Diffs:
+        itoa: |2|
+     ft_itoa: |16|
+
+ft_strmapi:    [OK] [OK] [OK] [OK] [OK] {not protected}
+ft_putchar_fd: [OK] [OK] 
+ft_putstr_fd:  [OK] [OK] {not protected}
+ft_putendl_fd: [OK] [OK] {not protected}
+ft_putnbr_fd:  [OK] [OK] [OK] [OK] [OK] 
+ft_lstnew:     [MISSING]
+ft_lstadd_front: [MISSING]
+ft_lstsize:    [MISSING]
+ft_lstlast:    [MISSING]
+ft_lstadd_back:[MISSING]
+ft_lstdelone:  [MISSING]
+ft_lstclear:   [MISSING]
+ft_lstiter:    [MISSING]
+ft_lstmap:     [MISSING]
