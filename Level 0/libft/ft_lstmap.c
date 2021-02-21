@@ -6,7 +6,7 @@
 /*   By: isousa <isousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 13:32:03 by isousa            #+#    #+#             */
-/*   Updated: 2021/02/20 15:18:11 by isousa           ###   ########.fr       */
+/*   Updated: 2021/02/21 16:23:50 by isousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 			ft_lstclear(&first, del);
 			return (0);
 		}
-		ft_lstadd_back(&first, new)
+		ft_lstadd_back(&first, new);
 		lst = lst->next;
 	}
 	return (first);

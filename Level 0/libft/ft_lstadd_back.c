@@ -6,7 +6,7 @@
 /*   By: isousa <isousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 13:30:06 by isousa            #+#    #+#             */
-/*   Updated: 2021/02/20 15:22:40 by isousa           ###   ########.fr       */
+/*   Updated: 2021/02/21 16:29:57 by isousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,15 @@
 
 void    ft_lstadd_back(t_list **lst, t_list *new)
 {
-    while(lst->next != NULL)
-        lst = lst->next;
-    lst->next = new;
-    new->next = NULL;
+    t_list *temp;
+
+    if(!new)
+        return ;
+    if (!*lst)
+    {
+        *lst = new;
+        return ;
+    }
+    temp = ft_lstlast(*lst);
+    temp->next = new;
 }

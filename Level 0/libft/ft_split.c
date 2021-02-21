@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isousa <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: isousa <isousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 19:52:11 by isousa            #+#    #+#             */
-/*   Updated: 2021/02/17 19:53:02 by isousa           ###   ########.fr       */
+/*   Updated: 2021/02/21 16:21:07 by isousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char		**ft_split(char const *s, char c)
 	size_t	k;
 	char	**strings;
 
-	strings = (char **)malloc((strcounter(s, c) + 1) * sizeof(char *)));
+	strings = (char **)malloc((strcounter(s, c) + 1) * sizeof(char *));
 	if (!s || !strings)
 		return (0);
 	i = -1;
@@ -72,6 +72,6 @@ char		**ft_split(char const *s, char c)
 		}
 		k++;
 	}
-	strings[j] = '\0';
-	return (strings)
+	strings[j] = 0;
+	return (strings);
 }
