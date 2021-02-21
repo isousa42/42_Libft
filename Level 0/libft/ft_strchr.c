@@ -14,21 +14,12 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	char	conv;
-	char	*str;
-	int		i;
+	char	temp;
 
-	str = (char *)s;
-	conv = (unsigned char)c;
-	i = 0;
-	if (conv == '\0')
-		return (0);
-	while (str[i] != '\0')
-	{
-		if (str[i] == conv)
-			return (str + i);
-		else
-			i++;
-	}
+	temp = (char)c;
+	while (*s != '\0' && temp != *s)
+		s++;
+	if (c == *s)
+		return ((char *)s);
 	return (0);
 }
