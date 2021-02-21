@@ -15,63 +15,73 @@
 static int	strcounter(const char *str, char c)
 {
 	int	counter;
-	int	flag;
+	int	i;
 
-	flag = 0;
+	i = 0;
 	counter = 0;
-	while (*str)
+	if (!str)
+		return (0);
+	while (str[i] != '\0')
 	{
-		if (*str != c && flag == 0)
-		{
-			flag = 1;
-			counter++;
-		}
-		else if (*str == c)
-			flag = 0;
-		str++;
+		while (str[i] != c && str[i] != '\0')
+			i++;
+		while (str[i] == c && str[i] != '\0')
+			i++;
+		counter++;
 	}
 	return (counter);
 }
 
-static char	*strcpy(const char *s, int start, int finish)
+static int	stringlen(const char *str, char c)
 {
-	char	*new;
-	int		i;
+	int len;
+
+	len = 0;
+	while (*str != c)
+	{
+		str++;
+		len++;
+	}
+	return (len);
+}
+
+static char	**strcpy(char **new, const char *s, char c) 
+{
+	int	i;
+	int	j;
 
 	i = 0;
-	new = (char *)malloc(finish - start * sizeof(char));
-	if (!new)
-		return (0);
-	while (start < finish)
-		new[i++] = s[start++];
-	new[i] = '\0';
+	while (*s != '\0')
+	{
+		while (*s == c && *s != '\0')
+			s++;
+		while (*s == '\0')
+			continue;
+		new[i] = (char **)malloc(sizeof(char*) * stringlen(s, c) + 1);
+		if (!new[i])
+			return (0);
+		j = 0;
+		while (*s != c && *s != '\0')
+		{
+			new[i][j] = *s;
+			j++;
+			s++;
+		}
+		new[i][j] = '\0';
+		i++;
+	}
+	new[i] = 0;
 	return (new);
+
 }
 
 char		**ft_split(char const *s, char c)
 {
-	size_t	i;
-	size_t	j;
-	size_t	k;
-	char	**strings;
+	char **new;
 
-	strings = (char **)malloc((strcounter(s, c) + 1) * sizeof(char *));
-	if (!s || !strings)
+	new = (char **)malloc(sizeof(char *) * (strcounter(s, c) + 1));
+	if (!s || !new)
 		return (0);
-	i = -1;
-	j = 0;
-	k = 0;
-	while (k < ft_strlen(s))
-	{
-		if (s[k] != c && i < 0)
-			i = k;
-		else if ((s[k] != c || k == ft_strlen(s)) && i >= 0)
-		{
-			strings[j++] = strcpy(s, i, k);
-			i = -1;
-		}
-		k++;
-	}
-	strings[j] = 0;
-	return (strings);
+	new = strcpy(new, s, c);
+	return (new);
 }
