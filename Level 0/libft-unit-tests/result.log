@@ -35,157 +35,7 @@ Diffs:
 ft_strlcpy:    [OK] [OK] [OK] [OK] [OK] [OK] {not protected}
 ft_strlcat:    [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] 
 ft_strnstr:    [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] 
-ft_atoi:       [FAILED] [FAILED] [FAILED] [FAILED] [FAILED] [FAILED] [FAILED] [OK] [FAILED] [KO] [KO] [KO] [KO] [KO] [KO] [KO] [OK] 
-[fail]: your atoi does not work with positive numbers
-Test code:
-	char *n = "945";
-	int i1 = atoi(n);
-	int i2 = ft_atoi(n);
-
-	if (i1 == i2)
-		exit(TEST_SUCCESS);
-	exit(TEST_FAILED);
-
-Diffs:
-        atoi: |945|
-     ft_atoi: |2147483647|
-
-[fail]: your atoi does not work with negative numbers
-Test code:
-	char *n = "-085";
-	int i1 = atoi(n);
-	int i2 = ft_atoi(n);
-
-	if (i1 == i2)
-		exit(TEST_SUCCESS);
-	exit(TEST_FAILED);
-
-Diffs:
-        atoi: |-85|
-     ft_atoi: |2147483647|
-
-[fail]: your atoi does not work with random numbers
-Test code:
-	srand(clock());
-
-	for (int i = 0; i < 100; i++)
-	{
-		char n[15];
-		__builtin___sprintf_chk (n, 0, __builtin_object_size (n, 2 > 1 ? 1 : 0), "%i", rand());
-		int i1 = atoi(n);
-		int i2 = ft_atoi(n);
-		if (i1 != i2)
-		{
-			exit(TEST_FAILED);
-		}
-	}
-	exit(TEST_SUCCESS);
-
-Diffs:
-        atoi: |3176523|
-     ft_atoi: |2147483647|
-
-[fail]: your atoi is not working with blanks
-Test code:
-	char *n = "\t\v\f\r\n \f-06050";
-	int i1 = atoi(n);
-	int i2 = ft_atoi(n);
-
-	if (i1 == i2)
-		exit(TEST_SUCCESS);
-	exit(TEST_FAILED);
-
-Diffs:
-        atoi: |-6050|
-     ft_atoi: |2147483647|
-
-[fail]: your atoi is not working with blanks
-Test code:
-	char *n = "\t\v\f\r\n \f- \f\t\n\r    06050";
-	int i1 = atoi(n);
-	int i2 = ft_atoi(n);
-
-	if (i1 == i2)
-		exit(TEST_SUCCESS);
-	exit(TEST_FAILED);
-
-Diffs:
-        atoi: |0|
-     ft_atoi: |2147483647|
-
-[fail]: your atoi is not working with non space invisible char
-Test code:
-	char *n = "\e06050";
-	int i1 = atoi(n);
-	int i2 = ft_atoi(n);
-
-	if (i1 == i2)
-		exit(TEST_SUCCESS);
-	exit(TEST_FAILED);
-
-Diffs:
-        atoi: |0|
-     ft_atoi: |2147483647|
-
-[fail]: your atoi is not working with blanks
-Test code:
-	char *n = "-123THERE IS A NYANCAT UNDER YOUR BED";
-	int i1 = atoi(n);
-	int i2 = ft_atoi(n);
-
-	if (i1 == i2)
-		exit(TEST_SUCCESS);
-	exit(TEST_FAILED);
-
-Diffs:
-        atoi: |-123|
-     ft_atoi: |2147483647|
-
-[fail]: your atoi does not work with int min value
-Test code:
-	char n[15];
-
-	__builtin___sprintf_chk (n, 0, __builtin_object_size (n, 2 > 1 ? 1 : 0), "%i", (-2147483647 -1));
-	int i1 = atoi(n);
-	int i2 = ft_atoi(n);
-	if (i1 == i2)
-		exit(TEST_SUCCESS);
-	exit(TEST_FAILED);
-
-Diffs:
-        atoi: |-2147483648|
-     ft_atoi: |2147483647|
-
-[KO]: your atoi does not work with long max value
-Test code:
-	char n[40];
-
-	__builtin___sprintf_chk (n, 0, __builtin_object_size (n, 2 > 1 ? 1 : 0), "%li", 9223372036854775807L);
-	int i1 = atoi(n);
-	int i2 = ft_atoi(n);
-	if (i1 == i2)
-		exit(TEST_SUCCESS);
-	exit(TEST_KO);
-
-Diffs:
-        atoi: |-1|
-     ft_atoi: |2147483647|
-
-[KO]: your atoi does not work with long min value
-Test code:
-	char n[40];
-
-	__builtin___sprintf_chk (n, 0, __builtin_object_size (n, 2 > 1 ? 1 : 0), "%li", (-9223372036854775807L -1L));
-	int i1 = atoi(n);
-	int i2 = ft_atoi(n);
-	if (i1 == i2)
-		exit(TEST_SUCCESS);
-	exit(TEST_KO);
-
-Diffs:
-        atoi: |0|
-     ft_atoi: |2147483647|
-
+ft_atoi:       [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [OK] [KO] [KO] [OK] [OK] [OK] [OK] 
 [KO]: your atoi does not work with over long max value
 Test code:
 	char n[40] = "99999999999999999999999999";
@@ -198,7 +48,7 @@ Test code:
 
 Diffs:
         atoi: |-1|
-     ft_atoi: |2147483647|
+     ft_atoi: |-469762049|
 
 [KO]: your atoi does not work with over long min value
 Test code:
@@ -212,49 +62,7 @@ Test code:
 
 Diffs:
         atoi: |0|
-     ft_atoi: |2147483647|
-
-[KO]: your atoi does not work with the plus sign
-Test code:
-	char n[40] = "+1234";
-	int i1 = atoi(n);
-	int i2 = ft_atoi(n);
-
-	if (i1 == i2)
-		exit(TEST_SUCCESS);
-	exit(TEST_KO);
-
-Diffs:
-        atoi: |1234|
-     ft_atoi: |2147483647|
-
-[KO]: your atoi does not work with the plus sign and spaces
-Test code:
-	char n[40] = "\t\v\f\r\n \f+\t\v\f\r\n \f1234";
-	int i1 = atoi(n);
-	int i2 = ft_atoi(n);
-
-	if (i1 == i2)
-		exit(TEST_SUCCESS);
-	exit(TEST_KO);
-
-Diffs:
-        atoi: |0|
-     ft_atoi: |2147483647|
-
-[KO]: your atoi does not work with the plus sign and spaces
-Test code:
-	char n[40] = "+\t\v\f\r\n \f1234";
-	int i1 = atoi(n);
-	int i2 = ft_atoi(n);
-
-	if (i1 == i2)
-		exit(TEST_SUCCESS);
-	exit(TEST_KO);
-
-Diffs:
-        atoi: |0|
-     ft_atoi: |2147483647|
+     ft_atoi: |469762049|
 
 ft_calloc:     [OK] [OK] [OK] [OK] [OK] 
 ft_strdup:     [OK] [OK] [OK] [OK] [OK] [OK] [OK] 
@@ -428,7 +236,7 @@ Hello 	  Please
  		
   |
 
-ft_split:      [FAILED] [OK] [FAILED] [FAILED] [OK] [OK] [FAILED] [OK] [FAILED] {not protected}
+ft_split:      [FAILED] [OK] [FAILED] [OK] [OK] [OK] [FAILED] [OK] [FAILED] {not protected}
 [fail]: your split does not work with basic input
 Test code:
 	char *string = "      split       this for   me  !       ";
@@ -439,7 +247,7 @@ Test code:
 
 Diffs:
        split: |split|
-    ft_split: ||
+    ft_split: | C`ù|
 
 [fail]: your split does not work with one word
 Test code:
@@ -450,18 +258,7 @@ Test code:
 
 Diffs:
        split: |olol|
-    ft_split: |pBŸ¯|
-
-[fail]: your split does not work with one word
-Test code:
-	char *s = "olol                     ";
-	char **result = ft_split(s, ' ');
-
-	split_cmp_array(expected, result);
-
-Diffs:
-       split: |olol|
-    ft_split: |pB€¯|
+    ft_split: |B`ù|
 
 [fail]: your split does not work with basic input
 Test code:
@@ -483,8 +280,8 @@ Test code:
 	exit(TEST_SUCCESS);
 
 Diffs:
-       split: |this|
-    ft_split: | C–Ÿ¯|
+       split: |split  |
+    ft_split: |ÄC`ù|
 
 [fail]: your split does not work with basic input
 Test code:
@@ -525,8 +322,8 @@ Test code:
 	exit(TEST_SUCCESS);
 
 Diffs:
-        itoa: |1089078538|
-     ft_itoa: |89078538|
+        itoa: |1051531537|
+     ft_itoa: |51531537|
 
 [fail]: your itoa does not work with min int
 Test code:
