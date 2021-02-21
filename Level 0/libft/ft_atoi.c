@@ -3,29 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isousa <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: isousa <isousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 17:50:17 by isousa            #+#    #+#             */
-/*   Updated: 2021/02/17 17:50:41 by isousa           ###   ########.fr       */
+/*   Updated: 2021/02/21 11:53:17 by isousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static const char	*ft_checkextreme(const char *s)
+static int	ft_checkextreme(const char *s)
 {
 	int compos;
 	int comneg;
 
-	compos = ft_strncmp(*s, "2147483647", ft(strlen(s) + 1));
-	comneg = ft_strncmp(*s, "-2147483648", ft(strlen(s) + 1));
+	compos = ft_strncmp(s, "2147483647", ft_strlen(s) + 1);
+	comneg = ft_strncmp(s, "-2147483648", ft_strlen(s) + 1);
 	if (compos == 0)
 		return (0);
 	if (comneg == 1)
 		return (1);
 	else
-		return (-1)
-
+		return (-1);
 }
 
 int	ft_atoi(const char *str)
