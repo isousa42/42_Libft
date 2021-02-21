@@ -30,8 +30,7 @@ int	ft_atoi(const char *str)
 	}
 	while (*str >= 48 && *str <= 57)
 	{
-		num = num * 10;
-		num = num + (int)(*str - '0');
+		num = num * 10 + (*str - '0');
 		str++;
 	}
 	return (num * sign);
