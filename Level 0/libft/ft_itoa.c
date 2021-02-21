@@ -12,66 +12,35 @@
 
 #include "libft.h"
 
-static int	ft_countdigit(int num, int counter)
-{
-	while (num > 10)
-	{
-		num /= 10;
-		counter++;
-	}
-	return (counter);
-}
 
-static char	*ft_createstring(char *number, int sign, int counter, int n)
-{
-	int		num;
 
-	if (sign == 1)
-	{
-		while (counter > 0)
-		{
-			num = n % 10;
-			n = n / 10;
-			number[counter] = (char)(num + '0');
-			counter--;
-		}
-	}
-	else
-	{
-		while (counter >= 0)
-		{
-			num = n % 10;
-			n = n / 10;
-			number[counter] = (char)(num + '0');
-			counter--;
-		}
-	}
-	return (number);
-}
+
 
 char		*ft_itoa(int n)
 {
-	char	*number;
-	int		sign;
-	int		num;
-	int		counter;
+	char	*res;
+	size_t	len;
+	size_t	sign;
+	size_t	num;
 
-	sign = 0;
-	counter = 1;
-	if (n < 0)
+	sign = (n < 0) ? 1 : 0;
+	num = (n < 0) ? (n * -1) : n;
+	while (n >= 10)
 	{
-		sign = 1;
-		n = n * -1;
-		counter++;
+		n = n / 10;
+		len++;
 	}
-	num = n;
-	counter = ft_countdigit(num, counter);
-	if (!(number = (char *)malloc((counter + 1 + sign) * sizeof(char *))))
-		return (NULL);
+	len += 1 + sign;
+	res = (char *)malloc(len + 1 * sizeof(char));
+	if (!res)
+		return (0);
+	res[len] = '\0';
+	while (len-- > sign)
+	{
+		res[len] = num % 10 + '0';
+		num = num / 10;
+	}
 	if (sign == 1)
-		number[0] = '-';
-	number[counter] = '\0';
-	counter--;
-	number = ft_createstring(number, sign, counter, n);
-	return (number);
+		res[len] = '-';
+	return (res);
 }

@@ -12,67 +12,66 @@
 
 #include "libft.h"
 
-static int	strwcnt_s(const char *str, const char *delim)
+static int	strcounter(const char *str, char c)
 {
-	int	i;
-	int	count;
+	int	counter;
 	int	flag;
 
-	count = 0;
 	flag = 0;
-	i = -1;
-	while (str[++i])
+	counter = 0;
+	while (*str)
 	{
-		if (!flag && !ft_strchr(delim, str[i]))
-			flag = 1;
-		else if (flag && ft_strchr(delim, str[i]))
+		if (*str != c && flag == 0)
 		{
-			flag = 0;
-			count++;
+			flag = 1;
+			counter++;
 		}
+		else if (*str == c)
+			flag = 0;
+		str++;
 	}
-	return (count + flag);
+	return (counter);
 }
 
-static char	**aux(const char *s, char c, char **strings)
+static char	*strcpy(const char *s, int start, int finish)
 {
-	int counter;
-	int i;
-	int j;
-	int x;
+	char	*new;
+	int		i;
 
 	i = 0;
-	j = -1;
-	counter = 0;
-	while (s[i])
-	{
-		counter = 0;
-		while (s[i] != c && s[i] && ++i)
-			counter++;
-		strings[++j] = (char *)malloc((counter + 1) * sizeof(char));
-		strings[j][counter] = '\0';
-		x = 0;
-		while (counter && ++x)
-			strings[j][--counter] = s[i - x];
-		if (s[i] == c)
-			i++;
-	}
-	return (strings);
+	new = (char *)malloc(finish - start * sizeof(char));
+	if (!new)
+		return (0);
+	while (start < finish)
+		new[i++] = s[start++];
+	new[i] = '\0';
+	return (new);
 }
 
 char		**ft_split(char const *s, char c)
 {
-	int		counter;
-	int		i;
-	char	delm[2];
+	size_t	i;
+	size_t	j;
+	size_t	k;
 	char	**strings;
 
+	strings = (char **)malloc((strcounter(s, c) + 1) * sizeof(char *)));
+	if (!s || !strings)
+		return (0);
 	i = -1;
-	delm[0] = c;
-	delm[1] = '\0';
-	counter = strwcnt_s(s, delm);
-	if (!(strings = (char **)malloc((counter + 1) * sizeof(char *))))
-		return (NULL);
-	strings[counter] = NULL;
-	return (aux(s, c, strings));
+	j = 0;
+	k = 0;
+	while (k < ft_strlen(s))
+	{
+		if (s[k] != c && i < 0)
+			i = k;
+		else if ((s[k] != c || k == ft_strlen(s)) && i >= 0)
+		{
+			strings[j++] = strcpy(s, i, k);
+			i = -1;
+		}
+		k++;
+	}
+	strings[j] = '\0';
+	return (strings)
 }

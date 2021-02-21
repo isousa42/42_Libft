@@ -18,11 +18,11 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		i;
 	int		j;
 
-	new = malloc(ft_strlen(s1) + ft_strlen(s2) + 1 * sizeof(char));
-	i = 0;
-	j = 0;
+	new = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1 * sizeof(char));
 	if (!s1 || !s2 || !new)
 		return (0);
+	i = 0;
+	j = 0;
 	while (s1[i] != '\0')
 	{
 		new[i] = s1[i];
