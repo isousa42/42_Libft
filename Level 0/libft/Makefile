@@ -19,14 +19,14 @@ SRCS		= ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 
 OBJS		= $(SRCS:.c=.o)
 
-BONUS_S	= ft_lstsize.c ft_lstnew.c ft_lstmap.c ft_lstiter.c ft_lstlast.c \
-			ft_lstdelone.c ft_lstclear.c ft_lstadd_front.c ft_lstadd_back.c
+BONUS_S		= ft_lstsize.c ft_lstnew.c ft_lstmap.c ft_lstiter.c ft_lstlast.c \
+				ft_lstdelone.c ft_lstclear.c ft_lstadd_front.c ft_lstadd_back.c
 
 BONUS_O	=	$(BONUS_S:.c=.o)
 
 all:		$(NAME)
 
-$(NAME):	$(OBJS) $(INLUDE)
+$(NAME):	$(OBJS) $(INCLUDE)
 			ar -rcs $(NAME) $(OBJS)
 			ranlib	$(NAME)
 
