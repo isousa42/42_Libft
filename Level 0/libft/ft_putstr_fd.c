@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isousa <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: isousa <isousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 19:51:31 by isousa            #+#    #+#             */
-/*   Updated: 2021/02/17 19:51:48 by isousa           ###   ########.fr       */
+/*   Updated: 2021/02/22 15:37:25 by isousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_putstr_fd(char *str, int fd)
 {
 	char *string;
 
+	if(!str || fd < 0)
+		return ;
 	string = str;
 	while (*string != '\0')
 	{

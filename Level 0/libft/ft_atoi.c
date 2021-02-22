@@ -6,7 +6,7 @@
 /*   By: isousa <isousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 17:50:17 by isousa            #+#    #+#             */
-/*   Updated: 2021/02/21 12:17:19 by isousa           ###   ########.fr       */
+/*   Updated: 2021/02/22 15:26:40 by isousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,27 @@
 int	ft_atoi(const char *str)
 {
 	int sign;
-	int num;
+	long long num;
 
 	sign = 1;
 	num = 0;
 	while ((*str == 32) || (*str >= 9 && *str <= 13))
 		str++;
-
-	while ((*str == 45) || (*str == 43))
+	if (*str == 45)
 	{
-		if (*str == 45)
-			sign = sign * -1;
+		sign *= -1;
 		str++;
 	}
+	else if (*str == 43)
+		str++;
 	while (*str >= 48 && *str <= 57)
 	{
-		num = num * 10 + (*str - '0');
-		str++;
+		num = num * 10;
+		num += (sign * (*(str++) - '0'));
+		if (num > 2147483647)
+			return (-1);
+		if (num < -2147483648)
+			return (0);
 	}
-	return (num * sign);
+	return (num);
 }

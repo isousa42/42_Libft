@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isousa <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: isousa <isousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 19:56:04 by isousa            #+#    #+#             */
-/*   Updated: 2021/02/17 19:58:10 by isousa           ###   ########.fr       */
+/*   Updated: 2021/02/22 15:30:03 by isousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		i;
 	int		j;
 
-	new = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1 * sizeof(char));
-	if (!s1 || !s2 || !new)
+	if (!s1 || !s2)
 		return (0);
+	new = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1 * sizeof(char));
+	if (!new)
+		return(0);
 	i = 0;
 	j = 0;
 	while (s1[i] != '\0')

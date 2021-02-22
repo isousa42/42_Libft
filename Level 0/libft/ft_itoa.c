@@ -6,7 +6,7 @@
 /*   By: isousa <isousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 19:14:07 by isousa            #+#    #+#             */
-/*   Updated: 2021/02/21 16:13:01 by isousa           ###   ########.fr       */
+/*   Updated: 2021/02/22 12:17:19 by isousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char		*ft_itoa(int n)
 {
 	char	*res;
 	size_t	len;
-	
+
 
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
@@ -47,16 +47,16 @@ char		*ft_itoa(int n)
 	res[len] = '\0';
 	len--;
 	if (n == 0)
-		str[0] = '0';
+		res[0] = '0';
 	else if (n < 0)
 	{
-		str[0] = '-';
+		res[0] = '-';
 		n = n * -1;
 	}
 	while (n > 0)
 	{
-		res[len] = (num % 10) + '0';
-		num = num / 10;
+		res[len] = (n % 10) + '0';
+		n = n / 10;
 		len--;
 	}
 	return (res);

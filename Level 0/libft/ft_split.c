@@ -6,7 +6,7 @@
 /*   By: isousa <isousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 19:52:11 by isousa            #+#    #+#             */
-/*   Updated: 2021/02/21 16:21:07 by isousa           ###   ########.fr       */
+/*   Updated: 2021/02/22 14:02:37 by isousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,56 +32,30 @@ static int	strcounter(const char *str, char c)
 	return (counter);
 }
 
-static int	stringlen(const char *str, char c)
-{
-	int len;
-
-	len = 0;
-	while (*str != c)
-	{
-		str++;
-		len++;
-	}
-	return (len);
-}
-
-static char	**strcpy(char **new, const char *s, char c) 
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (*s != '\0')
-	{
-		while (*s == c && *s != '\0')
-			s++;
-		while (*s == '\0')
-			continue;
-		new[i] = (char **)malloc(sizeof(char*) * stringlen(s, c) + 1);
-		if (!new[i])
-			return (0);
-		j = 0;
-		while (*s != c && *s != '\0')
-		{
-			new[i][j] = *s;
-			j++;
-			s++;
-		}
-		new[i][j] = '\0';
-		i++;
-	}
-	new[i] = 0;
-	return (new);
-
-}
-
 char		**ft_split(char const *s, char c)
 {
 	char **new;
+	int i;
+	int j;
+	int start;
 
-	new = (char **)malloc(sizeof(char *) * (strcounter(s, c) + 1));
+	new = malloc(sizeof(char *) * (strcounter(s, c) + 1));
 	if (!s || !new)
 		return (0);
-	new = strcpy(new, s, c);
+	i = 0;
+	j = 0;
+	while (s[i] != '\0')
+	{
+		while (s[i] == c && s[i] != '\0')
+			i++;
+		if (!s[i])
+			break;
+		start = i;
+		while (s[i] != c && s[i] != '\0')
+			i++;
+		new[j] = ft_substr(s, start, i - start);
+		j++;
+	}
+	new[j] = NULL;
 	return (new);
 }
